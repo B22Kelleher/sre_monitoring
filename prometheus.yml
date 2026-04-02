@@ -1,0 +1,6 @@
+global:
+  scrape_interval: 5s
+scarpe_configs:
+  - job_name: 'node'
+    static configs:
+      - targets: ['node-exporter:9100']
