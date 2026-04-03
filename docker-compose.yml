@@ -6,13 +6,43 @@ services:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
+
   grafana:
     image: grafana/grafana
     container_name: grafana
     ports:
-    - "3000:3000"
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_USER=${smtp_user}
+      - GF_SMTP_PASSWORD=${smtp_pass}
+      - GF_SMTP_FROM_ADDRESS=your_email@gmail.com
+      - GF_SMTP_FROM_NAME=Grafana Alerts
   node-exporter:
     image: prom/node-exporter
     container_name: node-exporter
     ports:
       - "9100:9100"
+    volumes:
+      - /:/host:ro, rslave
+    command: 
+      - '--path.rootfs=/host'
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+volumes:
+  grafana-storage:
+  prometheus-data:
