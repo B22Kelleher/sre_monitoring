@@ -18,10 +18,10 @@ services:
       - grafana-storage:/var/lib/grafana
     environment:
       - GF_SMTP_ENABLED=true
-      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_HOST=smtp.gmail.com
       - GF_SMTP_USER=${smtp_user}
       - GF_SMTP_PASSWORD=${smtp_pass}
-      - GF_SMTP_FROM_ADDRESS=your_email@gmail.com
+      - GF_SMTP_FROM_ADDRESS=b22kelleher@gmail.com
       - GF_SMTP_FROM_NAME=Grafana Alerts
   node-exporter:
     image: prom/node-exporter

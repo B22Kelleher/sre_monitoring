@@ -10,7 +10,7 @@ The goal of this project is to demonstrate practical experience with **observabi
 
 ## Features
 
-* 📊 Real-time monitoring of:
+* Real-time monitoring of:
 
   * CPU usage
   * Memory usage
